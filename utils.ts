@@ -1,4 +1,4 @@
-import { MESSAGE_TEXT, NO_MATCH_TEXT, NOTICE_TEXT } from "./constants.ts";
+import { MESSAGE_TEXT, NO_MATCH_TEXT } from "./constants.ts";
 import { Bot, Collection, Message } from "./deps.ts";
 import { Secret } from "./secret.ts";
 
@@ -48,5 +48,5 @@ export const createResultMessage = (userIds: bigint[][]) => {
     `<@${matchId[0]}> on <@${matchId[1]}> ${matchId[2] ? `on <@${matchId[2]}>` : ""}`
   ).join("\n");
 
-  return NOTICE_TEXT + matchText;
+  return matchText;
 };
