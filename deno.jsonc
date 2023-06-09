@@ -2,5 +2,8 @@
   "tasks": {
     "dev": "deno run -A --watch ./main.ts",
     "start": "deno run -A --watch ./main.ts"
+  },
+  "fmt": {
+    "lineWidth": 120
   }
 }
