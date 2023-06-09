@@ -30,7 +30,7 @@ export const getReactingUserIds = async ({ bot, messageId, emojis }: TgetReactin
 
 // マッチの結果をメッセージにして返す
 export const createResultMessage = (userIds: bigint[][]) => {
-  const DedupeUserIds = [...new Set(userIds.flat()), 1, 2, 3, 4];
+  const DedupeUserIds = [...new Set(userIds.flat())];
   // 重複削除の結果0か1の時は1on1をなしにする
   if (DedupeUserIds.length === 0 || DedupeUserIds.length === 1) return NO_MATCH_TEXT;
   const randomUserIds = DedupeUserIds.slice().sort(() => Math.random() - Math.random());
