@@ -50,8 +50,8 @@ export const createResultMessage = (userIds: bigint[]) => {
     },
   );
 
-  const matchText = matchIds.map((matchId) =>
-    `<@${matchId[0]}> on <@${matchId[1]}> ${matchId[2] ? `on <@${matchId[2]}>` : ""}`
+  const matchText = matchIds.map((matchId: bigint[], index: number) =>
+    `room${index + 1} <@${matchId[0]}> on <@${matchId[1]}> ${matchId[2] ? `on <@${matchId[2]}>` : ""}`
   ).join("\n");
 
   return NOTICE_TEXT + matchText;
