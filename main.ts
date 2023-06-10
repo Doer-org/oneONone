@@ -13,6 +13,12 @@ const bot = createBot({
   },
 });
 
+bot.events.messageCreate = (bot, message) => {
+  if (message.content === "!health") {
+    bot.helpers.sendMessage(message.channelId, { content: "good!" });
+  }
+};
+
 // 指定時刻に1on1への参加を可否を聞くCron
 // 月曜日の21時に流す
 new Cron("0 0 21 * * 1", () => {
