@@ -23,31 +23,30 @@ const day = 60 * 60 * 24;
 
 // 指定時刻に1on1への参加を可否を聞くCron
 // 月曜日の21時に流す
-new Cron("* 45 17 * * SAT", { interval: day * 7, timezone: "Asia/Tokyo" }, () => {
+new Cron("10 48 18 * * *", { interval: day * 7, timezone: "Asia/Tokyo" }, () => {
   bot.helpers.sendMessage(Secret.MY_CHANNEL_ID, { content: MESSAGE_TEXT });
-  console.log("message console");
 });
 
 // 開始時刻前になったらマッチ結果をお知らせしてくれるCron
 // 木曜日の21時に流す
-new Cron("* 46 17 * * SAT", { interval: day * 7, timezone: "Asia/Tokyo" }, async () => {
+new Cron("30 48 18 * * *", { interval: day * 7, timezone: "Asia/Tokyo" }, async () => {
   const messages = await bot.helpers.getMessages(Secret.MY_CHANNEL_ID);
   const reactedMessage = getReactedMessage({ messages });
   const reactedEmojis = getReactionEmojis(reactedMessage);
   const reactingUserIds = await getReactingUserIds({ bot, messageId: reactedMessage?.id, emojis: reactedEmojis });
-  const resultMessage = createResultMessage(reactingUserIds);
+  const resultMessage = createResultMessage([...reactingUserIds, ...reactingUserIds]);
   bot.helpers.sendMessage(Secret.MY_CHANNEL_ID, { content: resultMessage });
 });
 
 // 開催時刻に流れる
 // 木曜日の21時30分に流す
-new Cron("* 47 17 * * SAT", { interval: day * 7, timezone: "Asia/Tokyo" }, async () => {
+new Cron("50 48 18 * * *", { interval: day * 7, timezone: "Asia/Tokyo" }, async () => {
   const messages = await bot.helpers.getMessages(Secret.MY_CHANNEL_ID);
   const reactedMessage = getReactedMessage({ messages });
   const reactedEmojis = getReactionEmojis(reactedMessage);
   const reactingUserIds = await getReactingUserIds({ bot, messageId: reactedMessage?.id, emojis: reactedEmojis });
-  if (reactingUserIds.length === 0 || reactingUserIds.length === 1) return;
-  const startMessage = createStartMessage(reactingUserIds);
+  // if (reactingUserIds.length === 0 || reactingUserIds.length === 1) return;
+  const startMessage = createStartMessage([...reactingUserIds, ...reactingUserIds]);
   bot.helpers.sendMessage(Secret.MY_CHANNEL_ID, { content: startMessage });
 });
 
