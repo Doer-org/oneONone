@@ -1,1 +1,1 @@
-Worker: deno task start
+Worker: deno run -A --watch ./main.ts
