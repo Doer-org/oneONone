@@ -13,44 +13,18 @@ const bot = createBot({
   },
 });
 
-bot.events.messageCreate = (b, message) => {
-  if (message.content === "!help") {
-    b.helpers.sendMessage(message.channelId, {
-      content: "ヘルプ！",
-    });
-    console.log("help console");
-  }
-};
-
-bot.events.messageCreate = (b, message) => {
-  if (message.content === "!test") {
-    b.helpers.sendMessage(message.channelId, {
-      content: "テスト！",
-    });
-    console.log("test console");
-  }
-};
-
-new Cron("5 17 * * *", () => {
-  bot.helpers.sendMessage(Secret.MY_CHANNEL_ID, { content: MESSAGE_TEXT });
-  console.log("message console-1");
-});
-
-new Cron("5 17 1 * SAT", () => {
-  bot.helpers.sendMessage(Secret.MY_CHANNEL_ID, { content: MESSAGE_TEXT });
-  console.log("message console-2");
-});
+const day = 60 * 60 * 24;
 
 // 指定時刻に1on1への参加を可否を聞くCron
 // 月曜日の21時に流す
-new Cron("45 16 * * 6", () => {
+new Cron("* 35 17 * * SAT", { interval: day * 7 }, () => {
   bot.helpers.sendMessage(Secret.MY_CHANNEL_ID, { content: MESSAGE_TEXT });
   console.log("message console");
 });
 
 // 開始時刻前になったらマッチ結果をお知らせしてくれるCron
 // 木曜日の21時に流す
-new Cron("47 16 * * 6", async () => {
+new Cron("* 36 17 * * SAT", { interval: day * 7 }, async () => {
   const messages = await bot.helpers.getMessages(Secret.MY_CHANNEL_ID);
   const reactedMessage = getReactedMessage({ messages });
   const reactedEmojis = getReactionEmojis(reactedMessage);
@@ -62,7 +36,7 @@ new Cron("47 16 * * 6", async () => {
 
 // 開催時刻に流れる
 // 木曜日の21時30分に流す
-new Cron("48 16 * * 6", async () => {
+new Cron("* 37 17 * * SAT", { interval: day * 7 }, async () => {
   const messages = await bot.helpers.getMessages(Secret.MY_CHANNEL_ID);
   const reactedMessage = getReactedMessage({ messages });
   const reactedEmojis = getReactionEmojis(reactedMessage);
