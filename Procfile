@@ -1,1 +1,1 @@
-Worker: deno run --allow-env --allow-net ./src/main.ts
+Worker: deno run --allow-env --allow-net .main.ts
