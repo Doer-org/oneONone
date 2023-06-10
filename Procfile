@@ -1,1 +1,1 @@
-Worker: deno run --allow-env --allow-net .main.ts
+Worker: deno task start
