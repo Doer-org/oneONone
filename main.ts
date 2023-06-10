@@ -13,15 +13,25 @@ const bot = createBot({
   },
 });
 
+bot.events.messageCreate = (b, message) => {
+  if (message.content === "!help") {
+    b.helpers.sendMessage(message.channelId, {
+      content: "ヘルプ！",
+    });
+  }
+};
+
 // 指定時刻に1on1への参加を可否を聞くCron
 // 月曜日の21時に流す
-new Cron("0 20 16 * * */6", () => {
+const cron = new Cron("40 16 * * 6", () => {
   bot.helpers.sendMessage(Secret.MY_CHANNEL_ID, { content: MESSAGE_TEXT });
 });
 
+cron.schedule(() => {});
+
 // 開始時刻前になったらマッチ結果をお知らせしてくれるCron
 // 木曜日の21時に流す
-new Cron("0 21 16 * * */6", async () => {
+new Cron("42 16 * * 6", async () => {
   const messages = await bot.helpers.getMessages(Secret.MY_CHANNEL_ID);
   const reactedMessage = getReactedMessage({ messages });
   const reactedEmojis = getReactionEmojis(reactedMessage);
@@ -32,7 +42,7 @@ new Cron("0 21 16 * * */6", async () => {
 
 // 開催時刻に流れる
 // 木曜日の21時30分に流す
-new Cron("0 22 16 * * */6", async () => {
+new Cron("43 16 * * 6", async () => {
   const messages = await bot.helpers.getMessages(Secret.MY_CHANNEL_ID);
   const reactedMessage = getReactedMessage({ messages });
   const reactedEmojis = getReactionEmojis(reactedMessage);
