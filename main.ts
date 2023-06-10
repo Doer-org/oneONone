@@ -22,7 +22,7 @@ bot.events.messageCreate = (b, message) => {
   }
 };
 
-new Cron("45 16 * * */6", () => {
+new Cron("0 17 * * *", () => {
   bot.helpers.sendMessage(Secret.MY_CHANNEL_ID, { content: MESSAGE_TEXT });
   console.log("message console-1");
 });
