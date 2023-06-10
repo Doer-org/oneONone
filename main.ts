@@ -22,12 +22,21 @@ bot.events.messageCreate = (b, message) => {
   }
 };
 
-new Cron("0 17 * * *", () => {
+bot.events.messageCreate = (b, message) => {
+  if (message.content === "!test") {
+    b.helpers.sendMessage(message.channelId, {
+      content: "テスト！",
+    });
+    console.log("test console");
+  }
+};
+
+new Cron("5 17 * * *", () => {
   bot.helpers.sendMessage(Secret.MY_CHANNEL_ID, { content: MESSAGE_TEXT });
   console.log("message console-1");
 });
 
-new Cron("0 17 1 * SAT", () => {
+new Cron("5 17 1 * SAT", () => {
   bot.helpers.sendMessage(Secret.MY_CHANNEL_ID, { content: MESSAGE_TEXT });
   console.log("message console-2");
 });
