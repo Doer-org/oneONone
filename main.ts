@@ -1,4 +1,4 @@
-import { MESSAGE_TEXT, NOTICE_TEXT, START_TEXT } from "./constants.ts";
+import { MESSAGE_TEXT } from "./constants.ts";
 import { createBot, Cron, Intents, startBot } from "./deps.ts";
 import { Secret } from "./secret.ts";
 import {
