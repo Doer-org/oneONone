@@ -15,7 +15,7 @@ const bot = createBot({
 
 // 指定時刻に1on1への参加を可否を聞くCron
 // 月曜日の21時に流す
-new Cron("0 0 12 * * *", () => {
+new Cron("0 5/* * * * *", () => {
   bot.helpers.sendMessage(Secret.MY_CHANNEL_ID, { content: MESSAGE_TEXT });
 });
 
