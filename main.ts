@@ -18,7 +18,7 @@ const day = 60 * 60 * 24;
 bot.events.messageCreate = (b, message) => {
   if (message.content === "!help") {
     b.helpers.sendMessage(message.channelId, {
-      content: "ヘルプ！",
+      content: "ヘルプ！100",
     });
     console.log("help console");
   }
