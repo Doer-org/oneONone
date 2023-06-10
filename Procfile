@@ -1,1 +1,1 @@
-Worker: deno run -A --watch ./main.ts
+worker: deno run -A --watch ./main.ts
