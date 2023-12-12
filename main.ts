@@ -26,10 +26,6 @@ bot.events.messageCreate = (bot, message) => {
   }
 };
 
-Deno.cron("test cron", "*/3 * * * *", () => {
-  bot.helpers.sendMessage(Secret.MY_CHANNEL_ID, { content: "good!" });
-});
-
 // 指定時刻に1on1への参加を可否を聞くCron
 // 月曜日の21時に流す
 Deno.cron("monday cron", "0 21 * * MON", () => {
