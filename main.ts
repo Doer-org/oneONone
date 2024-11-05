@@ -27,16 +27,16 @@ bot.events.messageCreate = (bot, message) => {
 };
 
 // 指定時刻に1on1への参加を可否を聞くCron
-// 月曜日の21時に流す
+// 13時に流す
 // UTCとの時差が9時間あるので、これで21時にcronが動く
-Deno.cron("monday cron", "0 12 * * MON", () => {
+Deno.cron("participate", "0 12 * * *", () => {
   bot.helpers.sendMessage(Secret.MY_CHANNEL_ID, { content: MESSAGE_TEXT });
 });
 
 // 開始時刻前になったらマッチ結果をお知らせしてくれるCron
-// 木曜日の21時に流す
+// 21時に流す
 // UTCとの時差が9時間あるので、これで21時にcronが動く
-Deno.cron("thursday 21 cron", "0 12 * * THU", async () => {
+Deno.cron("result", "0 12 * * *", async () => {
   const messages = await bot.helpers.getMessages(Secret.MY_CHANNEL_ID);
   const reactedMessage = getReactedMessage({ messages });
   const reactedEmojis = getReactionEmojis(reactedMessage);
@@ -46,9 +46,9 @@ Deno.cron("thursday 21 cron", "0 12 * * THU", async () => {
 });
 
 // 開催時刻に流れる
-// 木曜日の21時30分に流す
+// 21時30分に流す
 // UTCとの時差が9時間あるので、これで21時30分にcronが動く
-Deno.cron("thusrsday 2130 cron", "30 12 * * THU", async () => {
+Deno.cron("open", "30 12 * * *", async () => {
   const messages = await bot.helpers.getMessages(Secret.MY_CHANNEL_ID);
   const reactedMessage = getReactedMessage({ messages });
   const reactedEmojis = getReactionEmojis(reactedMessage);
