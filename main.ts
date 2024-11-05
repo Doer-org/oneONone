@@ -29,7 +29,8 @@ bot.events.messageCreate = (bot, message) => {
 // 指定時刻に1on1への参加を可否を聞くCron
 // 13時に流す
 // UTCとの時差が9時間あるので、これで21時にcronが動く
-Deno.cron("participate", "0 12 * * *", () => {
+// @fixme：今日だけ16時に流して流れたら修正する
+Deno.cron("participate", "0 7 * * *", () => {
   bot.helpers.sendMessage(Secret.MY_CHANNEL_ID, { content: MESSAGE_TEXT });
 });
 
