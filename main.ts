@@ -1,5 +1,6 @@
+///<reference lib="deno.unstable" />
 import { MESSAGE_TEXT } from "./constants.ts";
-import { createBot, Cron, Intents, startBot } from "./deps.ts";
+import { createBot, Intents, startBot } from "./deps.ts";
 import { Secret } from "./secret.ts";
 import {
   createResultMessage,
@@ -25,17 +26,16 @@ bot.events.messageCreate = (bot, message) => {
   }
 };
 
-const day = 60 * 60 * 24;
-
 // 指定時刻に1on1への参加を可否を聞くCron
-// 月曜日の21時に流す
-new Cron("0 0 21 * * MON", { interval: day * 7, timezone: "Asia/Tokyo" }, () => {
+// UTCとの時差が9時間あるので、これで13時にcronが動く
+Deno.cron("participate", "0 4 * * *", () => {
   bot.helpers.sendMessage(Secret.MY_CHANNEL_ID, { content: MESSAGE_TEXT });
 });
 
 // 開始時刻前になったらマッチ結果をお知らせしてくれるCron
-// 木曜日の21時に流す
-new Cron("0 0 21 * * THU", { interval: day * 7, timezone: "Asia/Tokyo" }, async () => {
+// 21時に流す
+// UTCとの時差が9時間あるので、これで21時にcronが動く
+Deno.cron("result", "0 12 * * *", async () => {
   const messages = await bot.helpers.getMessages(Secret.MY_CHANNEL_ID);
   const reactedMessage = getReactedMessage({ messages });
   const reactedEmojis = getReactionEmojis(reactedMessage);
@@ -45,8 +45,9 @@ new Cron("0 0 21 * * THU", { interval: day * 7, timezone: "Asia/Tokyo" }, async 
 });
 
 // 開催時刻に流れる
-// 木曜日の21時30分に流す
-new Cron("0 30 21 * * THU", { interval: day * 7, timezone: "Asia/Tokyo" }, async () => {
+// 21時30分に流す
+// UTCとの時差が9時間あるので、これで21時30分にcronが動く
+Deno.cron("open", "30 12 * * *", async () => {
   const messages = await bot.helpers.getMessages(Secret.MY_CHANNEL_ID);
   const reactedMessage = getReactedMessage({ messages });
   const reactedEmojis = getReactionEmojis(reactedMessage);
